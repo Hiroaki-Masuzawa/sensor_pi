@@ -1,0 +1,2 @@
+#sudo docker run --rm --name pi_sensor --device /dev/gpiomem  --device /dev/i2c-1 --privileged -e TZ=Asia/Tokyo -it -v `pwd`/catkin_ws:/catkin_ws -u `id -u`:`id -g` -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -w /catkin_ws sensor_pi bash 
+sudo docker run --rm --name sensor_pi --device /dev/gpiomem  --device /dev/i2c-1 --privileged -e TZ=Asia/Tokyo -it -v `pwd`/../catkin_ws:/catkin_ws -w /catkin_ws sensor_pi bash -c "catkin_make; source /catkin_ws/devel/setup.bash; roslaunch sensor_pi sensor_pi.launch use_tof:=true"
