@@ -17,7 +17,6 @@ class TOFPublisher(I2CSensorPublisherNodeAbst):
         self.pub = rospy.Publisher('~tof_distance', Float64, queue_size=1)
         self.VL53L0X_REG_SYSRANGE_START = 0x00
         self.VL53L0X_REG_RESULT_RANGE_STATUS = 0x14
-        self.pub = rospy.Publisher('~tof_distance', Float64, queue_size=1)
     def loop(self):
         self.i2c.write_i2c_block_data(self.address, self.VL53L0X_REG_SYSRANGE_START, [0x01])
         cnt = 0
@@ -33,8 +32,6 @@ class TOFPublisher(I2CSensorPublisherNodeAbst):
             #scnt = val[8] * 2**8 + val[9] 
             distance = float(val[10] * 2**8 + val[11])
             self.pub.publish(distance)
-
-
 
 
 class UltraSonicPublisher(I2CSensorPublisherNodeAbst):
