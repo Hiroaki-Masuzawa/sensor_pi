@@ -1,0 +1,27 @@
+{
+	"I2CHubPublisher": {
+		"0": {
+			"name": "ColorSensorPublisher",
+			"address": "0x29",
+			"topic_name": "color_value0"
+		},
+		"1": {
+			"name": "ColorSensorPublisher",
+			"address": "0x29",
+			"topic_name": "color_value1"
+		},
+		"7": {
+			"name": "TOFPublisher",
+			"address": "0x29",
+			"topic_name": "tof_distance"
+		},
+		"address": "0x70"
+	},
+	"UltraSonicPublisher" : {
+		"address" : "0x57",
+		"topic_name": "ultrasonic_distance"
+
+	}
+}
+
+

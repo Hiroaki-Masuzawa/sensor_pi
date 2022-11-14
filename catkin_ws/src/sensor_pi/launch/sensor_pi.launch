@@ -1,8 +1,14 @@
 <launch>
+    <!--
     <arg name="use_ultrasonic" default="true" />
     <arg name="use_tof" default="false" />
+    -->
+    <arg name="config_path" default="$(find sensor_pi)/config/all_sensor.json"/>
     <node pkg="sensor_pi" name="sensor_pi_node" type="sensor_pi_node.py" output="screen">
+	<!--
         <param name="~use_ultrasonic" value="$(arg use_ultrasonic)" />
         <param name="~use_tof" value="$(arg use_tof)" />
+	-->
+	<param name="~config_path" value="$(arg config_path)" />
     </node>
 </launch>

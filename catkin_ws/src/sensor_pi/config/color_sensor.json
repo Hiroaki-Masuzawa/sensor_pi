@@ -1,0 +1,17 @@
+{
+	"I2CHubPublisher": {
+		"0": {
+			"name": "ColorSensorPublisher",
+			"address": "0x29",
+			"topic_name": "color_value0"
+		},
+		"1": {
+			"name": "ColorSensorPublisher",
+			"address": "0x29",
+			"topic_name": "color_value1"
+		},
+		"address": "0x70"
+	}
+}
+
+
