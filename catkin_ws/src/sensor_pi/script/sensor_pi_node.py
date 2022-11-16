@@ -2,7 +2,7 @@
 import rospy
 import smbus
 import time
-from std_msgs.msg import Float64, ColorRGBA
+from std_msgs.msg import Float64, ColorRGBA, Float32MultiArray, MultiArrayDimension
 import json
 
 class I2CSensorPublisherNodeAbst(object):
@@ -84,6 +84,32 @@ class ColorSensorPublisher(I2CSensorPublisherNodeAbst):
         color.b = blue_v/max_count
         self.pub.publish(color)
 
+from ads1015 import ADS1015
+
+class ReflectorPublisher(I2CSensorPublisherNodeAbst):
+    def __init__(self, i2c, address, pins, topic_name="reflector_value"):
+        super(ReflectorPublisher, self).__init__(i2c, address)
+        self.adc = ADS1015(i2c, address)
+        self.pins = pins
+        self.adc_ports = [self.adc.get_channel_data(pin) for pin in self.pins]
+        self.pub = rospy.Publisher('~{}'.format(topic_name), Float32MultiArray, queue_size=1)
+
+    def setup(self):
+        None
+
+    def loop(self):
+        msg = Float32MultiArray()
+        for adc_port in self.adc_ports:
+            value = self.adc.read_se_adc(adc_port)
+            msg.data.append(value)
+        dim0 = MultiArrayDimension()
+        dim0.label = ''
+        dim0.size = len(self.adc_ports)
+        dim0.stride = 1
+        msg.layout.dim.append(dim0)
+        self.pub.publish(msg)
+
+
 class SensorPublisher():
     def __init__(self, bus_id=1):
         rospy.init_node('sensor_pi_node', anonymous=True)
@@ -102,7 +128,7 @@ class SensorPublisher():
         self.node_list.append(I2CHubPublisher(self.i2c, TCA9548A_address, {0:color_sensor_pub0, 1:color_sensor_pub1}))
         """
         config_path  = rospy.get_param("~config_path")
-        json_open = open('/catkin_ws/src/sensor_pi/config/all_sensor.json', 'r')
+        json_open = open(config_path, 'r')
         config = json.load(json_open)
         for node_name, node_args in config.items():
             if node_name=='I2CHubPublisher':

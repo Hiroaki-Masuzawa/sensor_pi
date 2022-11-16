@@ -18,9 +18,14 @@
 		"address": "0x70"
 	},
 	"UltraSonicPublisher" : {
-		"address" : "0x57",
-		"topic_name": "ultrasonic_distance"
+                "address" : "0x57",
+                "topic_name": "ultrasonic_distance"
 
+        },
+	"ReflectorPublisher" :{
+		"address" : "0x48",
+		"topic_name": "reflector_value",
+		"pins" : [0, 1]
 	}
 }
 
