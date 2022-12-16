@@ -112,21 +112,9 @@ class ReflectorPublisher(I2CSensorPublisherNodeAbst):
 
 class SensorPublisher():
     def __init__(self, bus_id=1):
-        rospy.init_node('sensor_pi_node', anonymous=True)
         self.i2c = smbus.SMBus(bus_id)
         self.node_list = list()
 
-        """
-        use_ultrasonic = rospy.get_param("~use_ultrasonic")
-        use_tof = rospy.get_param("~use_tof")
-        if use_ultrasonic:
-            self.node_list.append(UltraSonicPublisher(self.i2c, 0x57))
-        if use_tof:
-            self.node_list.append(TOFPublisher(self.i2c, 0x29))
-        color_sensor_pub0 = ColorSensorPublisher(self.i2c, TCS34725_ADDRESS, topic_name="color_value0")
-        color_sensor_pub1 = ColorSensorPublisher(self.i2c, TCS34725_ADDRESS, topic_name="color_value1")
-        self.node_list.append(I2CHubPublisher(self.i2c, TCA9548A_address, {0:color_sensor_pub0, 1:color_sensor_pub1}))
-        """
         config_path  = rospy.get_param("~config_path")
         json_open = open(config_path, 'r')
         config = json.load(json_open)
@@ -165,6 +153,8 @@ class SensorPublisher():
 
 
 if __name__ == '__main__':
-    sensor_pub = SensorPublisher()
+    rospy.init_node('sensor_pi_node', anonymous=True)
+    bus_id = rospy.get_param("~bus_id")
+    sensor_pub = SensorPublisher(bus_id=bus_id)
     while not rospy.is_shutdown():
         sensor_pub.loop()
