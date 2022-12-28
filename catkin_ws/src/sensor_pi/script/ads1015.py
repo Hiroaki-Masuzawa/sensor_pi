@@ -79,7 +79,7 @@ class ADS1015:
         self.samples_per_second = 128
     
     def busy(self):
-        data = self.i2c.read_i2c_block_data(self.address, self.ADS1015_DATA_ADDRESS.REG_CFG)
+        data = self.i2c.read_i2c_block_data(self.address, self.ADS1015_DATA_ADDRESS.REG_CFG, 2)
         status = (data[0] << 8) | data[1]
         return (status & (1 << 15)) == 0
     
@@ -98,7 +98,7 @@ class ADS1015:
         while self.busy():
             time.sleep(0.001)
         
-        data = self.i2c.read_i2c_block_data(self.address, self.ADS1015_DATA_ADDRESS.REG_CONV)
+        data = self.i2c.read_i2c_block_data(self.address, self.ADS1015_DATA_ADDRESS.REG_CONV, 2)
         value = (data[0] << 4) | (data[1] >> 4)
         if value & 0x800:
             value -= 1 << 12

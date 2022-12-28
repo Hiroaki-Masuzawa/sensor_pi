@@ -11,17 +11,12 @@
 			"topic_name": "color_value1"
 		},
 		"7": {
-			"name": "TOFPublisher",
-			"address": "0x29",
-			"topic_name": "tof_distance"
+			"name": "UltraSonicPublisher",
+			"address": "0x57",
+			"topic_name": "ultrasonic_distance"
 		},
 		"address": "0x70"
 	},
-	"UltraSonicPublisher" : {
-                "address" : "0x57",
-                "topic_name": "ultrasonic_distance"
-
-        },
 	"ReflectorPublisher" :{
 		"address" : "0x48",
 		"topic_name": "reflector_value",
