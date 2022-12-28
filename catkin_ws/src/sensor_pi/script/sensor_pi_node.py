@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import rospy
-import smbus
 import time
 from std_msgs.msg import Float64, ColorRGBA, Float32MultiArray, MultiArrayDimension
 import json
@@ -112,7 +111,21 @@ class ReflectorPublisher(I2CSensorPublisherNodeAbst):
 
 class SensorPublisher():
     def __init__(self, bus_id=1):
-        self.i2c = smbus.SMBus(bus_id)
+        # self.i2c = smbus.SMBus(bus_id)
+        bus_type = rospy.get_param("~bus_type")
+        if bus_type ==  "smbus":
+            bus_id = rospy.get_param("~bus_id")
+            from smbusi2c import SMBusI2C
+            self.i2c = SMBusI2C(bus_id)
+        elif bus_type ==  "smbus2":
+            bus_id = rospy.get_param("~bus_id")
+            from smbus2i2c import SMBus2I2C
+            self.i2c = SMBus2I2C(bus_id)
+        elif bus_type ==  "ft232h":
+            bus_id = rospy.get_param("~bus_id")
+            from ft232hi2c import FT232HI2C
+            self.i2c = FT232HI2C(bus_id)
+
         self.node_list = list()
 
         config_path  = rospy.get_param("~config_path")
@@ -154,7 +167,6 @@ class SensorPublisher():
 
 if __name__ == '__main__':
     rospy.init_node('sensor_pi_node', anonymous=True)
-    bus_id = rospy.get_param("~bus_id")
-    sensor_pub = SensorPublisher(bus_id=bus_id)
+    sensor_pub = SensorPublisher()
     while not rospy.is_shutdown():
         sensor_pub.loop()

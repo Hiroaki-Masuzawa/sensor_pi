@@ -1,13 +1,21 @@
 {
-	"UltraSonicPublisher" : {
-                "address" : "0x57",
-                "topic_name": "ultrasonic_distance"
-
-        },
-	"ReflectorPublisher" :{
-		"address" : "0x48",
-		"topic_name": "reflector_value",
-		"pins" : [0, 1]
+	"I2CHubPublisher": {
+		"0": {
+			"name": "ColorSensorPublisher",
+			"address": "0x29",
+			"topic_name": "color_value0"
+		},
+		"1": {
+			"name": "ColorSensorPublisher",
+			"address": "0x29",
+			"topic_name": "color_value1"
+		},
+		"7": {
+			"name": "UltraSonicPublisher",
+			"address": "0x57",
+			"topic_name": "ultrasonic_distance"
+		},
+		"address": "0x70"
 	}
 }
 
