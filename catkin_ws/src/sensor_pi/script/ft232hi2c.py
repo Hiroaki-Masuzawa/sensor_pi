@@ -1,5 +1,4 @@
 from os import environ
-import sys
 from pyftdi.i2c import I2cController
 from i2cabst import I2CAbst
 
