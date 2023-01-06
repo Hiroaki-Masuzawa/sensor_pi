@@ -1,5 +1,5 @@
 from i2cabst import I2CAbst
-import smbus2
+import smbus
 
 class SMBus2I2C(I2CAbst):
     def __init__(self, bus_id):
