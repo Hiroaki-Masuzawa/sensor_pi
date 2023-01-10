@@ -125,10 +125,16 @@ class SensorPublisher():
             bus_id = rospy.get_param("~bus_id")
             from ft232hi2c import FT232HI2C
             self.i2c = FT232HI2C(bus_id)
-
+        elif bus_type ==  "mcp2221":
+            from mcp2221a import PyMCP2221A_I2C
+            self.i2c = PyMCP2221A_I2C()
+        else:
+            assert False, "Not defined bus type"
+        print("Bus setup end")
         self.node_list = list()
 
         config_path  = rospy.get_param("~config_path")
+        print("config path : {}".format(config_path))
         json_open = open(config_path, 'r')
         config = json.load(json_open)
         for node_name, node_args in config.items():
@@ -163,7 +169,6 @@ class SensorPublisher():
             node.loop()
         if len(self.node_list) == 0:
             time.sleep(0.1)
-
 
 if __name__ == '__main__':
     rospy.init_node('sensor_pi_node', anonymous=True)
