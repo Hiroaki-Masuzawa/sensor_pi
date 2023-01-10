@@ -72,7 +72,7 @@
 ~~~
 
 ### config内のセンサ名称
-|センサ|config内名称|内部項目|
+|センサ|config内名称|パラメータ|
 |:-:|:-:|:-:|
 |超音波センサ|UltraSonicPublisher|address, topic_name|
 |カラーセンサ|ColorSensorPublisher|address, topic_name|
