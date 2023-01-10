@@ -93,20 +93,20 @@ cd docker_RaspberryPi
 ~~~
 ### FT232Hの場合
 ~~~
-cd docker_RaspberryPi
+cd docker_ubuntu
 ./build.sh
 ./run_ft232h.sh configfile bus_id (おおむね1)
 ~~~
 ### Tiny-usb & CP2112の場合
 ~~~
-cd docker_RaspberryPi
+cd docker_ubuntu
 ./build.sh
 ./run_smbus.sh configfile bus_id (場合によって変わるのでdmesg等で確認する)
 ~~~
 
 ### MCP2221Aの場合
 ~~~
-cd docker_RaspberryPi
+cd docker_ubuntu
 ./build.sh
 ./run_mcp2221.sh configfile
 ~~~
