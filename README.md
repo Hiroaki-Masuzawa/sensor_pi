@@ -5,7 +5,7 @@
 # 使用可能機器
 - raspberry pi 4B
 - tiny-usb [このソフト](https://github.com/Hiroaki-Masuzawa/rp2040-i2c-interface)をraspberry pi picoに書き込むことで可能。
-- FT232H pyftdiを持ちいて実現。
+- FT232H pyftdiを用いて実現。
 - CP2112 [サンハヤトの変換ボード](https://www.sunhayato.co.jp/material2/ett09/item_1052)で確認。
 - MCP2221A [みんなのラボ](http://minnanolab.net/product/pro_USB-I2C_BRIDGEBOARD-V2-GROVE/pro_USB-I2C_BRIDGEBOARD-V2-GROVE.html)で確認。[USB HIDライブラリ](https://github.com/nonNoise/PyMCP2221A)を用いて制御する。
 
