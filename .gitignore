@@ -3,3 +3,4 @@ catkin_ws/devel
 catkin_ws/.catkin_workspace
 catkin_ws/src/CMakeLists.txt
 catkin_ws/src/sensor_pi/script/__pycache__
+catkin_ws/src/sensor_pi/config/test_sensor.json

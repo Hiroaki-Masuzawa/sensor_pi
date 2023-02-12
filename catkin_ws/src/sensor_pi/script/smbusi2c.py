@@ -1,9 +1,9 @@
 from i2cabst import I2CAbst
 import smbus
 
-class SMBus2I2C(I2CAbst):
+class SMBusI2C(I2CAbst):
     def __init__(self, bus_id):
-        self.i2c = smbus2.SMBus(bus_id)
+        self.i2c = smbus.SMBus(bus_id)
     def write_i2c_block_data(self, addr, cmd, data):
         return self.i2c.write_i2c_block_data(addr, cmd, data)
     def read_i2c_block_data(self, addr, cmd, length):
