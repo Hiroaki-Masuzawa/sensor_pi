@@ -1,0 +1,8 @@
+{
+	"IMUPublisher": {
+		"topic_name": "imu",
+		"address": "0x68"
+	}
+}
+
+
