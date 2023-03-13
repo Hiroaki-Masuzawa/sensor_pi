@@ -109,6 +109,51 @@ class ReflectorPublisher(I2CSensorPublisherNodeAbst):
         self.pub.publish(msg)
 
 
+from mpu6886 import MPU6886
+from sensor_msgs.msg import Imu
+import imufusion
+
+class IMUPublisher(I2CSensorPublisherNodeAbst):
+    def __init__(self, i2c, address, frame_id='imu', topic_name="imu_value"):
+        super(IMUPublisher, self).__init__(i2c, address)
+        self.pub = rospy.Publisher('~{}'.format(topic_name), Imu, queue_size=1)
+        self.imu = MPU6886(i2c, address)
+        self.frame_id = frame_id
+        self.ahrs = imufusion.Ahrs()
+        self.last_time = None
+
+    def setup(self):
+        self.imu.dev_init()
+
+    def loop(self):
+        g_data = self.imu.getGyroData()
+        a_data = self.imu.getAccelData()
+        d_time = 0.01
+        n_time = rospy.Time.now()
+        if self.last_time is not None:
+            d_time = (n_time-self.last_time).to_sec()
+        self.ahrs.update_no_magnetometer(g_data, a_data, d_time)
+        self.last_time = n_time
+        imu_data = Imu()
+        imu_data.header.stamp=n_time
+        imu_data.header.frame_id=self.frame_id
+
+        imu_data.orientation.w = self.ahrs.quaternion.w
+        imu_data.orientation.x = self.ahrs.quaternion.x
+        imu_data.orientation.y = self.ahrs.quaternion.y
+        imu_data.orientation.z = self.ahrs.quaternion.z
+
+        imu_data.angular_velocity.x = g_data[0]
+        imu_data.angular_velocity.y = g_data[1]
+        imu_data.angular_velocity.z = g_data[2]
+
+        imu_data.linear_acceleration.x = a_data[0]
+        imu_data.linear_acceleration.y = a_data[1] 
+        imu_data.linear_acceleration.z = a_data[2]
+
+        self.pub.publish(imu_data)
+
+
 class SensorPublisher():
     def __init__(self, bus_id=1):
         # self.i2c = smbus.SMBus(bus_id)
