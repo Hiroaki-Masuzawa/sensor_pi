@@ -28,6 +28,7 @@
 - [ToFセンサ](https://www.switch-science.com/products/5219)
 - [AD変換](https://www.marutsu.co.jp/pc/i/574269/)+[リフレクタセンサ]()
 - [I2Cハブ](https://www.marutsu.co.jp/pc/i/1631561/)
+- [IMU](https://ssci.to/6623)
 
 
 # 使用方法
@@ -79,6 +80,7 @@
 |ToFセンサ|TOFPublisher|address, topic_name|
 |AD変換+リフレクタセンサ|ReflectorPublisher|address, topic_name, pins|
 |I2Cハブ|I2CHubPublisher|address, 接続センサ(上記参照)|
+|IMUセンサ|IMUPublisher|address, topic_name|
 
 - address : I2Cアドレスを記載(16進数文字列)
 - topic_name :　ROS出力時の名称を記載(文字列)
