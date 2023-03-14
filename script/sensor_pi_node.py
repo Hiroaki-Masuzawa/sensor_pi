@@ -112,6 +112,7 @@ class ReflectorPublisher(I2CSensorPublisherNodeAbst):
 from mpu6886 import MPU6886
 from sensor_msgs.msg import Imu
 import imufusion
+import numpy as np
 
 class IMUPublisher(I2CSensorPublisherNodeAbst):
     def __init__(self, i2c, address, frame_id='imu', topic_name="imu_value"):
