@@ -121,6 +121,7 @@ class IMUPublisher(I2CSensorPublisherNodeAbst):
         self.frame_id = frame_id
         self.ahrs = imufusion.Ahrs()
         self.last_time = None
+        self.g = 9.80665
 
     def setup(self):
         self.imu.dev_init()
@@ -143,13 +144,13 @@ class IMUPublisher(I2CSensorPublisherNodeAbst):
         imu_data.orientation.y = self.ahrs.quaternion.y
         imu_data.orientation.z = self.ahrs.quaternion.z
 
-        imu_data.angular_velocity.x = g_data[0]
-        imu_data.angular_velocity.y = g_data[1]
-        imu_data.angular_velocity.z = g_data[2]
+        imu_data.angular_velocity.x = np.deg2rad(g_data[0])
+        imu_data.angular_velocity.y = np.deg2rad(g_data[1])
+        imu_data.angular_velocity.z = np.deg2rad(g_data[2])
 
-        imu_data.linear_acceleration.x = a_data[0]
-        imu_data.linear_acceleration.y = a_data[1] 
-        imu_data.linear_acceleration.z = a_data[2]
+        imu_data.linear_acceleration.x = a_data[0] * self.g
+        imu_data.linear_acceleration.y = a_data[1] * self.g
+        imu_data.linear_acceleration.z = a_data[2] * self.g
 
         self.pub.publish(imu_data)
 
