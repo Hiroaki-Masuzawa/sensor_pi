@@ -32,7 +32,7 @@ class TOFPublisher(I2CSensorPublisherNodeAbst):
         if cnt < 100:
             #acnt = val[6] * 2**8 + val[7] 
             #scnt = val[8] * 2**8 + val[9] 
-            distance = float(val[10] * 2**8 + val[11])
+            distance = float(val[10] * 2**8 + val[11])/1000.0 # mm -> m
             self.pub.publish(distance)
 
 
