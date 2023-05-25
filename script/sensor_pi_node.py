@@ -16,7 +16,7 @@ class I2CSensorPublisherNodeAbst(object):
 class TOFPublisher(I2CSensorPublisherNodeAbst):
     def __init__(self, i2c, address, topic_name='tof_distance'):
         super(TOFPublisher, self).__init__(i2c, address)
-        self.pub = rospy.Publisher('~{}'.format(topic_name), Float64, queue_size=1)
+        self.pub = rospy.Publisher('{}'.format(topic_name), Float64, queue_size=1)
         self.VL53L0X_REG_SYSRANGE_START = 0x00
         self.VL53L0X_REG_RESULT_RANGE_STATUS = 0x14
     def loop(self):
@@ -39,7 +39,7 @@ class TOFPublisher(I2CSensorPublisherNodeAbst):
 class UltraSonicPublisher(I2CSensorPublisherNodeAbst):
     def __init__(self, i2c, address, topic_name = 'ultrasonic_distance'):
         super(UltraSonicPublisher, self).__init__(i2c, address)
-        self.pub = rospy.Publisher('~{}'.format(topic_name), Float64, queue_size=1)
+        self.pub = rospy.Publisher('{}'.format(topic_name), Float64, queue_size=1)
     def loop(self):
         self.i2c.write_i2c_block_data(self.address, 0x01,[])
         time.sleep(0.12)
@@ -71,7 +71,7 @@ class ColorSensorPublisher(I2CSensorPublisherNodeAbst):
     def __init__(self, i2c, address, topic_name = "color_value"):
         super(ColorSensorPublisher, self).__init__(i2c, address)
         self.sensor = TCS34725(address=address, bus=i2c)
-        self.pub = rospy.Publisher('~{}'.format(topic_name), ColorRGBA, queue_size=1)
+        self.pub = rospy.Publisher('{}'.format(topic_name), ColorRGBA, queue_size=1)
     def setup(self):
         self.sensor.setup()
     def loop(self):
@@ -91,7 +91,7 @@ class ReflectorPublisher(I2CSensorPublisherNodeAbst):
         self.adc = ADS1015(i2c, address)
         self.pins = pins
         self.adc_ports = [self.adc.get_channel_data(pin) for pin in self.pins]
-        self.pub = rospy.Publisher('~{}'.format(topic_name), Float32MultiArray, queue_size=1)
+        self.pub = rospy.Publisher('{}'.format(topic_name), Float32MultiArray, queue_size=1)
 
     def setup(self):
         None
@@ -117,7 +117,7 @@ import numpy as np
 class IMUPublisher(I2CSensorPublisherNodeAbst):
     def __init__(self, i2c, address, frame_id='imu', topic_name="imu_value"):
         super(IMUPublisher, self).__init__(i2c, address)
-        self.pub = rospy.Publisher('~{}'.format(topic_name), Imu, queue_size=1)
+        self.pub = rospy.Publisher('{}'.format(topic_name), Imu, queue_size=1)
         self.imu = MPU6886(i2c, address)
         self.frame_id = frame_id
         self.ahrs = imufusion.Ahrs()
