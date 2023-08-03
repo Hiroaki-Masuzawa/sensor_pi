@@ -1,0 +1,10 @@
+{
+	"I2CHubPublisher": {
+		"0": {
+			"name": "TOFPublisher",
+			"address": "0x29",
+			"topic_name": "TOFsensor"
+		},
+		"address": "0x70"
+	}
+}
