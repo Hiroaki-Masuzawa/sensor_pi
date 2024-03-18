@@ -2,7 +2,6 @@
 import rospy
 import time
 from std_msgs.msg import Float64, ColorRGBA, Float32MultiArray, MultiArrayDimension
-import json
 
 class I2CSensorPublisherNodeAbst(object):
     def __init__(self, i2c, address):
@@ -180,10 +179,8 @@ class SensorPublisher():
         print("Bus setup end")
         self.node_list = list()
 
-        config_path  = rospy.get_param("~config_path")
-        print("config path : {}".format(config_path))
-        json_open = open(config_path, 'r')
-        config = json.load(json_open)
+        config = rospy.get_param("~config")
+        print(config)
         for node_name, node_args in config.items():
             if node_name=='I2CHubPublisher':
                 sensors = {}

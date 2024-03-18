@@ -1,0 +1,20 @@
+I2CHubPublisher:
+  '0':
+    address: '0x29'
+    name: ColorSensorPublisher
+    topic_name: color_value0
+  '1':
+    address: '0x29'
+    name: ColorSensorPublisher
+    topic_name: color_value1
+  '7':
+    address: '0x57'
+    name: UltraSonicPublisher
+    topic_name: ultrasonic_distance
+  address: '0x70'
+ReflectorPublisher:
+  address: '0x48'
+  pins:
+  - 0
+  - 1
+  topic_name: reflector_value

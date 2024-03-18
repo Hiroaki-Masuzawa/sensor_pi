@@ -1,0 +1,3 @@
+IMUPublisher:
+  address: '0x68'
+  topic_name: imu
