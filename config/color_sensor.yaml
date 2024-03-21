@@ -1,0 +1,10 @@
+I2CHubPublisher:
+  '0':
+    address: '0x29'
+    name: ColorSensorPublisher
+    topic_name: color_value0
+  '1':
+    address: '0x29'
+    name: ColorSensorPublisher
+    topic_name: color_value1
+  address: '0x70'

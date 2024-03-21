@@ -1,11 +1,18 @@
 <launch>
-    <arg name="config_path" default="$(find sensor_pi)/config/all_sensor.json"/>
+    <arg name="config_path" default="$(find sensor_pi)/config/all_sensor.yaml"/>
+    <arg name="load_config" default="true" />
     <arg name="bus_id" default="1"/>
     <arg name="bus_type" default="smbus2"/>
+    <arg name="node_name" default="sensor_pi_node" />
+    <arg name="namespace" default="sensor_pi" />
     
-    <node pkg="sensor_pi" name="sensor_pi_node" type="sensor_pi_node.py" output="screen">
-	<param name="~config_path" value="$(arg config_path)" />
-	<param name="~bus_id" value="$(arg bus_id)" />
-	<param name="~bus_type" value="$(arg bus_type)" />
-    </node>
+    <group ns="$(arg namespace)">
+        <node pkg="sensor_pi" name="$(arg node_name)" type="sensor_pi_node.py" output="screen">
+            <param name="~bus_id" value="$(arg bus_id)" />
+            <param name="~bus_type" value="$(arg bus_type)" />
+        </node>
+        <group ns="$(arg node_name)/config" if="$(arg load_config)">
+            <rosparam command="load" file="$(arg config_path)"/>
+        </group>
+    </group>
 </launch>

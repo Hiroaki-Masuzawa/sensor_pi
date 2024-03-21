@@ -1,0 +1,6 @@
+I2CHubPublisher:
+  '0':
+    address: '0x29'
+    name: TOFPublisher
+    topic_name: TOFsensor
+  address: '0x70'
